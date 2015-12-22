@@ -2,19 +2,21 @@
 An enhanced version of the AsyncTask for android,you can specify the ui thread and worker thread
 
 ## Usage
-HashMap<String, String> params = new HashMap<String, String>();
-params.put("username", "admin");
-params.put("password", "admin");
-params.put("action", "login");
-//Ìí¼ÓµÄËùÓĞTask½«»áË³ĞòÖ´ĞĞ£¬¿ÉÒÔÖ¸¶¨TaskÒªÔËĞĞÔÚUI/WorkÏß³Ì
-new TaskExecutor().addTask(new NetWorkTask(this, "http://112.74.203.90/WebServer/tie.ashx", params, new NetWorkTask.INetWorkTaskCallback() {
+
+######æ·»åŠ çš„æ‰€æœ‰Taskå°†ä¼šé¡ºåºæ‰§è¡Œï¼Œå¯ä»¥æŒ‡å®šTaskè¦è¿è¡Œåœ¨UI/Workçº¿ç¨‹
+	HashMap<String, String> params = new HashMap<String, String>();
+	params.put("username", "admin");
+	params.put("password", "admin");
+	params.put("action", "login");
+	
+	new TaskExecutor().addTask(new NetWorkTask(this, "http://112.74.203.90/WebServer/tie.ashx", params, new NetWorkTask.INetWorkTaskCallback() {
 			
 			@Override
 			public void onTaskFinish(String response) {
 				Log.e(TAG, "TASK result1:" + response);
 			}
 		}))
-     .addTask(new Task(TaskType.Thread_UI) {//Ö¸¶¨ÔËĞĞUIÏß³Ì
+     .addTask(new Task(TaskType.Thread_UI) {//æŒ‡å®šè¿è¡ŒUIçº¿ç¨‹
 			
 			@Override
 			protected boolean run() {//
@@ -22,7 +24,7 @@ new TaskExecutor().addTask(new NetWorkTask(this, "http://112.74.203.90/WebServer
 				tv.setText("--");
 				return true;
 			}
-		}).addTask(new Task(TaskType.Thread_Work) {//Ö¸¶¨ÔËĞĞWorkÏß³Ì
+		}).addTask(new Task(TaskType.Thread_Work) {//æŒ‡å®šè¿è¡ŒWorkçº¿ç¨‹
 			
 			@Override
 			protected boolean run() {
@@ -32,9 +34,8 @@ new TaskExecutor().addTask(new NetWorkTask(this, "http://112.74.203.90/WebServer
 		})
     .execute();
     
-    
-//³ı´ËÖ®Ç°Ò²¿ÉÒÔÖ¸¶¨TaskGroup,TaskGroupÖĞµÄ×ÓWork Task»á²¢ĞĞÖ´ĞĞ
-TaskGroup group = new TaskGroup();
+######é™¤æ­¤ä¹‹å‰ä¹Ÿå¯ä»¥æŒ‡å®šTaskGroup,TaskGroupä¸­çš„å­Work Taskä¼šå¹¶è¡Œæ‰§è¡Œ
+	TaskGroup group = new TaskGroup();
     	group.addTask(new Task(TaskType.Thread_UI) {
 			
 			@Override
@@ -67,5 +68,4 @@ TaskGroup group = new TaskGroup();
 				
 			}
 		});
-
-new TaskExecutor().addTask(group).execute();
+	new TaskExecutor().addTask(group).execute();
