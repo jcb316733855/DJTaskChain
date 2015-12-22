@@ -34,7 +34,7 @@ An enhanced version of the AsyncTask for android,you can specify the ui thread a
 		})
     .execute();
     
-######除此之前也可以指定TaskGroup,TaskGroup中的子Work Task会并行执行
+######除此之外也可以指定TaskGroup,TaskGroup中的子Work Task会并行执行
 	TaskGroup group = new TaskGroup();
     	group.addTask(new Task(TaskType.Thread_UI) {
 			
